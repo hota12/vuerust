@@ -1,7 +1,9 @@
 <template>
 
-      <div  v-bind:style="{ bottom: this.y, left: this.x }" class="mark">
-        <div class="center"></div>
+      <div  v-bind:style="{ bottom: this.y, left: this.x,  }" class="mark">
+        <div class="pulse" :style="{opacity: this.heat}"></div>
+        <button @click="ativaHeat()">Iniciar Intervalo</button>
+        <div class="center"><img src="../assets/smartalarm.png" alt="" class="icon"></div>
       </div>
 </template>
 
@@ -14,22 +16,25 @@ export default {
 
     data(){
       return{
-        styleObject: {
-          top:this.x,
-          left:this.y
-        }
+        heat:0
       }
 
     },
-    computed:{
-      atualizaX(){
-        
-        return  this.x
-      },
-      atualizaY(){
-        return  this.y
+    methods: {
+      ativaHeat(){
+        clearInterval(intervalo)
+        this.heat = 900
+        let initial = 9000
+        var intervalo = setInterval(() => {
+          initial = initial - 100
+          console.log (initial)
+          if(initial == 0){
+            clearInterval(intervalo)
+          }
+          this.heat = initial / 10000
+        }, 100);
       }
-    }
+    },
 }
 </script>
 
@@ -43,21 +48,35 @@ export default {
   height: 60px;
   border-radius: 600px;
   background:#fff0;
-  border: solid 2px rgb(97, 187, 0);
+  border: solid 2px rgba(38, 38, 38, 0.392);
   position: absolute;
   transform: translate(-50%, 50%);
+}
+
+.pulse{
+  width: 100%;
+  height: 100%;
+  background: rgb(136,0,0);
+  background: radial-gradient(circle, rgba(136,0,0,1) 0%, rgba(230,43,43,1) 51%, rgba(252,88,88,0) 100%);
+  border-radius: 1000px;
 }
 
 .center{
     width: 5px;
     height: 5px;
-    background-color: red;
+    background-color: rgba(38, 38, 38, 0.392);
     display: inline;
     transform: translate(-50%, -50%);
     position: absolute;
     left: 50%;
     top: 50%;
     border-radius: 100px;
+}
+
+.icon{
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: auto;
 }
 </style>
 
