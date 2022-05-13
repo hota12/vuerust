@@ -16,20 +16,23 @@ export default {
 
     data(){
       return{
-        heat:0
+        heat:0,
+        intervalo:""
       }
 
     },
     methods: {
       ativaHeat(){
-        clearInterval(intervalo)
+        if(this.heat != 0){  
+        clearInterval(this.intervalo)
+        }
         this.heat = 900
         let initial = 9000
-        var intervalo = setInterval(() => {
+        this.intervalo = setInterval(() => {
           initial = initial - 100
           console.log (initial)
           if(initial == 0){
-            clearInterval(intervalo)
+            clearInterval(this.intervalo)
           }
           this.heat = initial / 10000
         }, 100);
@@ -44,8 +47,8 @@ export default {
 
 .mark{
   display: inline;
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   border-radius: 600px;
   background:#fff0;
   border: solid 2px rgba(38, 38, 38, 0.392);
