@@ -44,11 +44,11 @@ export default {
 
 .mark{
   display: inline;
-  width: 10px;
-  height: 10px;
+  width: 5px;
+  height: 5px;
   border-radius: 15px;
   background: greenyellow;
-  border: solid 2px rgb(97, 187, 0);
+  border: solid 1px rgb(97, 187, 0);
   position: absolute;
   transform: translate(-50%, 50%);
 }

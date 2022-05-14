@@ -1,9 +1,7 @@
 <template>
 
-      <div  v-bind:style="{ bottom: this.y, left: this.x,  }" class="mark">
+      <div  v-bind:style="{ bottom: this.y, left: this.x,  }"   class="mark">
         <div class="pulse" :style="{opacity: this.heat}"></div>
-        <button @click="ativaHeat()">Iniciar Intervalo</button>
-        <div class="center"><img src="../assets/smartalarm.png" alt="" class="icon"></div>
       </div>
 </template>
 
@@ -12,30 +10,49 @@
 
 export default {
 
-    props:['x','y'],
-
+    props:['x','y', 'state'],
     data(){
       return{
         heat:0,
-        intervalo:""
+        intervalo:"",
+        ativado: this.state
       }
 
     },
+
+    watch:{
+      state(){
+        this.ativaHeat()
+      }
+    },
+    
     methods: {
+
+      setFalse(){
+      this.$emit('setFalse')
+      },
+
       ativaHeat(){
+
         if(this.heat != 0){  
         clearInterval(this.intervalo)
         }
-        this.heat = 900
+        if(this.state == true){
+          this.heat = 9000 / 10000
+          clearInterval(this.intervalo)
+        }else if(this.state == false){
+          this.heat = 900
         let initial = 9000
         this.intervalo = setInterval(() => {
           initial = initial - 100
-          console.log (initial)
+          
           if(initial == 0){
             clearInterval(this.intervalo)
           }
           this.heat = initial / 10000
         }, 100);
+        }
+        
       }
     },
 }
@@ -47,11 +64,11 @@ export default {
 
 .mark{
   display: inline;
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
   border-radius: 600px;
   background:#fff0;
-  border: solid 2px rgba(38, 38, 38, 0.392);
+  border: solid 1px rgba(47, 205, 253, 0.392);
   position: absolute;
   transform: translate(-50%, 50%);
 }
