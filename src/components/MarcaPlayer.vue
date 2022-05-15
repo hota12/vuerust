@@ -1,8 +1,9 @@
 <template >
-
-      <div :style="{ bottom: this.y, left: this.x }" class="mark" >
+    <div :style="{ bottom: this.y, left: this.x,  borderColor: this.sentryRaio}" class="raio" @click="ativaRaio()">
+      <div  class="mark">
         <span class="player-name">{{steamId}}</span>
       </div>
+    </div>
 </template>
 
 <script>
@@ -14,9 +15,20 @@ export default {
 
     data(){
       return{
-        nomePlayer: ''
+        nomePlayer: '',
+        sentryRaio: 'none'
       }
 
+    },
+
+    methods:{
+        ativaRaio(){
+          if(this.sentryRaio == "#ffffff00"){
+            this.sentryRaio = 'red'
+          }else{
+            this.sentryRaio = '#ffffff00'
+          }
+        }
     },
     
     computed:{
@@ -41,6 +53,18 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.raio{
+  position: absolute;
+  transform: translate(-50%, 50%);
+  display: flex;
+  width: 28px;
+  height: 28px;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: solid 1px #ffffff00
+}
 
 .mark{
   display: inline;
@@ -49,8 +73,6 @@ export default {
   border-radius: 15px;
   background: greenyellow;
   border: solid 1px rgb(97, 187, 0);
-  position: absolute;
-  transform: translate(-50%, 50%);
 }
 
 .player-name{
