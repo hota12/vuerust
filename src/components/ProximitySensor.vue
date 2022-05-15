@@ -1,5 +1,4 @@
 <template>
-
       <div  v-bind:style="{ bottom: this.y, left: this.x,  }"   class="mark">
         <div class="pulse" :style="{opacity: this.heat}"></div>
       </div>
@@ -23,11 +22,17 @@ export default {
     watch:{
       state(){
         this.ativaHeat()
+        this.playSound ('http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3')
       }
     },
     
     methods: {
-
+      playSound (sound) {
+        if(sound) {
+          var audio = new Audio(sound);
+          audio.play();
+      }
+      },
       setFalse(){
       this.$emit('setFalse')
       },
